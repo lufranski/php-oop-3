@@ -80,12 +80,14 @@
     class Impiegato extends Persona {
 
         private $dataDiAssunzione;
+        private Stipendio $stipendio;
 
-        public function __construct($nome,$cognome,$dataDiNascita,$luogoDiNascita,$codiceFiscale, $dataDiAssunzione){
+        public function __construct($nome,$cognome,$dataDiNascita,$luogoDiNascita,$codiceFiscale, $dataDiAssunzione, Stipendio $stipendio){
 
             parent :: __construct($nome,$cognome,$dataDiNascita,$luogoDiNascita,$codiceFiscale, $dataDiAssunzione);
 
             $this -> setHiringDate($dataDiAssunzione);
+            $this -> setSalary($stipendio);
         }
 
         public function getHiringDate(){
@@ -96,15 +98,78 @@
 
             $this -> dataDiAssunzione = $dataDiAssunzione;
         }
+        
+        public function getSalary(){
+
+            return $this -> stipendio;
+        }
+        public function setSalary($stipendio){
+
+            $this -> stipendio = $stipendio;
+        }
 
         public function getHtml(){
 
-            return '<br>' . parent :: getHtml() . ' ' . $this -> getHiringDate();
+            return '<br>' . parent :: getHtml() . ' ' . $this -> getHiringDate()
+                    . 'Stipendio: ' . $this -> stipendio -> salaryCalc();
+        }
+
+    }
+
+    class Stipendio {
+
+        private $mensile;
+        private $tredicesima; //Boolean
+        private $quattordicesima; //Boolean
+
+        public function __construct ($mensile, $tredicesima, $quattordicesima){
+
+            $this -> setMensile($mensile);
+            $this -> setTredicesima($tredicesima); 
+            $this -> setQuattordicesima($quattordicesima); 
+        }
+
+        public function getMensile(){
+
+            return $this -> mensile;
+        }
+        public function setMensile($mensile){
+
+            $this -> mensile = $mensile;
+        }
+
+        public function getTredicesima(){
+
+            return $this -> tredicesima;
+        }
+        public function setTredicesima($tredicesima){
+
+            $this -> tredicesima = $tredicesima;
+        }
+
+        public function getQuattordicesima(){
+
+            return $this -> quattordicesima;
+        }
+        public function setQuattordicesima($quattordicesima){
+
+            $this -> quattordicesima = $quattordicesima;
+        }
+
+        public function salaryCalc(){
+
+            return (($this -> getMensile() * 12) + $this -> getTredicesima()) + $this -> getQuattordicesima(); 
+        }
+
+        public function getHtml(){
+
+            return $this -> salaryCalc();
         }
     }
 
+    $stipendio = new Stipendio(1000, 1000, 1000);
     $persona = new Persona ('Mario', 'Rossi', '12-01-1990', 'Busto Arsizio', 'MRRSS29A90C352I');
-    $impiegato = new Impiegato ('Franco', 'Lerda', '13-02-1984', 'Modena', 'FRCLRD45A86C352J', '12-06-99');
+    $impiegato = new Impiegato ('Franco', 'Lerda', '13-02-1984', 'Modena', 'FRCLRD45A86C352J', '12-06-99', $stipendio);
 
     echo $persona -> getHtml();
     echo $impiegato -> getHtml();
