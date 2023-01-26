@@ -15,41 +15,83 @@
         require_once('db.php');
     ?>
 
+    <style>
+        div {
+            display: flex;
+            justify-content: space-evenly;
+            padding-top: 4rem;
+        }
+        
+        li {
+            margin-bottom: 1rem;
+        }
+    </style>
+
 </head>
 <body>
+    <div>
+
+        <ul>
+            <h3>
+                <strong>
     
-    <ul>
-        <p>Clienti:</p>
-        
-        <?php
-
-            foreach($persone as $persona){
-
-                echo '<li>' 
-                    . $persona -> getFullName() . '<br>'
-                    . $persona -> getBirthDate() . '<br>'
-                    . $persona -> getBirthPlace() . '<br>'
-                    . $persona -> getFiscalCode() . '<br>'
+                    Clienti:
+                </strong>
+            </h3>
+            
+            <?php
+    
+                foreach($persone as $persona){
+    
+                    echo '<li>' 
+                        . '<strong>Nome: </strong>' . $persona -> getFullName() . '<br>'
+                        . '<strong>Data di nascita: </strong>' . $persona -> getBirthDate() . '<br>'
+                        . '<strong>Luogo di nascita: </strong>' . $persona -> getBirthPlace() . '<br>'
+                        . '<strong>Codice Fiscale: </strong>' . $persona -> getFiscalCode() . '<br>'
+                        . '</li>';
+                }
+            ?>
+        </ul>
+    
+        <ul>
+            <h3>
+                <strong>
+                    
+                    Impiegati:
+                </strong>
+            </h3>
+    
+            <?php
+                foreach($impiegati as $impiegato){
+                    echo '<li>' 
+                        . '<strong>Nome: </strong>' . $impiegato -> getFullName() . '<br>'
+                        . '<strong>Data di nascita: </strong>' . $impiegato -> getBirthDate() . '<br>'
+                        . '<strong>Luogo di nascita: </strong>' . $impiegato -> getBirthPlace() . '<br>'
+                        . '<strong>Codice Fiscale: </strong>' . $impiegato -> getFiscalCode() . '<br>'
+                        . '<strong>Data di assunzione: </strong>' . $impiegato -> getHiringDate() . '<br>'
+                        . '<strong>Stipendio: </strong>' . $impiegato -> getSalaryForYear() . ' euro'
+                        . '</li>';
+                }
+            ?>    
+        </ul>
+    
+        <ul>
+            <h3>
+                <strong>
+                    Big Boss:
+                </strong>
+            </h3>
+            <?php
+                echo '<li>'
+                    . '<strong>Nome: </strong>' . $capo -> getFullName() . '<br>'
+                    . '<strong>Data di nascita: </strong>' . $capo -> getBirthDate() . '<br>'
+                    . '<strong>Luogo di nascita: </strong>' . $capo -> getBirthPlace() . '<br>'
+                    . '<strong>Codice Fiscale: </strong>' . $capo -> getFiscalCode() . '<br>'
+                    . '<strong>Stipendio: </strong>' . $capo -> getBossSalary() . ' euro'
                     . '</li>';
-            }
-        ?>
-    </ul>
+            ?>
+        </ul>
 
-    <ul>
-        <p>Impiegati:</p>
-
-        <?php
-            foreach($impiegati as $impiegato){
-                echo '<li>' 
-                    . $impiegato -> getFullName() . '<br>'
-                    . $impiegato -> getBirthDate() . '<br>'
-                    . $impiegato -> getBirthPlace() . '<br>'
-                    . $impiegato -> getFiscalCode() . '<br>'
-                    . 'Data di assunzione: ' . $impiegato -> getHiringDate() . '<br>'
-                    . 'Stipendio: ' . $impiegato -> getSalaryForYear() . ' euro'
-                    . '</li>';
-            }
-        ?>    
-    </ul>
+    </div>
 </body>
 </html>
